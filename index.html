@@ -1,0 +1,398 @@
+<html><head><base href="/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auto Elite - Carros Premium</title>
+<style>
+:root {
+  --primary: #1a237e;
+  --secondary: #ff3d00;
+  --light: #f5f5f5;
+  --dark: #212121;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: var(--light);
+}
+
+.navbar {
+  background: var(--primary);
+  padding: 1rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--secondary);
+}
+
+.hero {
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3') center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding-top: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, var(--primary) 0%, transparent 100%);
+  opacity: 0.3;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.car-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.car-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s;
+  position: relative;
+}
+
+.car-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.car-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.car-card:hover .car-image {
+  transform: scale(1.1);
+}
+
+.car-details {
+  padding: 1.5rem;
+}
+
+.car-price {
+  color: var(--secondary);
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.car-specs {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  color: var(--dark);
+  font-size: 0.9rem;
+}
+
+.car-title {
+  font-size: 1.4rem;
+  margin: 0.5rem 0;
+  color: var(--dark);
+}
+
+.btn {
+  background: var(--secondary);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn:hover {
+  background: #ff6333;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 61, 0, 0.3);
+}
+
+.filter-section {
+  background: white;
+  padding: 2rem;
+  margin: 2rem auto;
+  border-radius: 15px;
+  max-width: 1200px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-item label {
+  font-weight: bold;
+  color: var(--dark);
+}
+
+.search-bar {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.search-bar:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+#price-range {
+  width: 100%;
+  height: 8px;
+  background: #ddd;
+  border-radius: 4px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+#price-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--secondary);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+#price-range::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.car-card {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+  }
+  
+  .filter-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="https://exemplo.com" class="navbar-brand">Auto Elite</a>
+  <div class="nav-links">
+    <a href="https://exemplo.com/catalogo">Catálogo</a>
+    <a href="https://exemplo.com/sobre">Sobre</a>
+    <a href="https://exemplo.com/contato">Contato</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Encontre o Carro dos Seus Sonhos</h1>
+    <p>Os melhores veículos premium com as melhores condições</p>
+    <button class="btn">Explorar Catálogo</button>
+  </div>
+</section>
+
+<div class="filter-section">
+  <div class="filter-grid">
+    <div class="filter-item">
+      <label>Buscar</label>
+      <input type="text" class="search-bar" placeholder="Buscar carros..." id="searchInput">
+    </div>
+    <div class="filter-item">
+      <label>Preço Máximo: R$<span id="price-value">275000</span></label>
+      <input type="range" id="price-range" min="50000" max="500000" step="10000">
+    </div>
+  </div>
+</div>
+
+<div class="car-grid" id="carGrid">
+  <!-- Carros serão inseridos aqui via JavaScript -->
+</div>
+
+<script>
+const cars = [
+  {
+    id: 1,
+    name: "Mercedes-Benz C200",
+    price: 280000,
+    year: 2023,
+    km: 0,
+    power: "184 cv",
+    transmission: "Automático",
+    image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800"
+  },
+  {
+    id: 2,
+    name: "BMW 320i",
+    price: 260000,
+    year: 2023,
+    km: 0,
+    power: "184 cv",
+    transmission: "Automático",
+    image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800"
+  },
+  {
+    id: 3,
+    name: "Audi A4",
+    price: 290000,
+    year: 2023,
+    km: 0,
+    power: "190 cv",
+    transmission: "Automático",
+    image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800"
+  }
+];
+
+function formatPrice(price) {
+  return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function renderCars(filteredCars) {
+  const carGrid = document.getElementById('carGrid');
+  carGrid.innerHTML = '';
+  
+  filteredCars.forEach(car => {
+    const carCard = document.createElement('div');
+    carCard.className = 'car-card';
+    carCard.innerHTML = `
+      <img src="${car.image}" alt="${car.name} - ${car.year}" class="car-image">
+      <div class="car-details">
+        <h3 class="car-title">${car.name} ${car.year}</h3>
+        <p class="car-price">${formatPrice(car.price)}</p>
+        <div class="car-specs">
+          <span>🏁 ${car.power}</span>
+          <span>⚙️ ${car.transmission}</span>
+          <span>📍 ${car.km}km</span>
+        </div>
+        <button class="btn" onclick="showCarDetails(${car.id})">Ver Detalhes</button>
+      </div>
+    `;
+    carGrid.appendChild(carCard);
+  });
+}
+
+function showCarDetails(carId) {
+  const car = cars.find(c => c.id === carId);
+  alert(`
+    ${car.name} ${car.year}
+    Preço: ${formatPrice(car.price)}
+    Potência: ${car.power}
+    Transmissão: ${car.transmission}
+    Quilometragem: ${car.km}km
+    
+    Entre em contato para mais informações!
+  `);
+}
+
+const searchInput = document.getElementById('searchInput');
+const priceRange = document.getElementById('price-range');
+const priceValue = document.getElementById('price-value');
+
+function filterCars() {
+  const searchTerm = searchInput.value.toLowerCase();
+  const maxPrice = parseInt(priceRange.value);
+  
+  const filtered = cars.filter(car => {
+    return car.name.toLowerCase().includes(searchTerm) &&
+           car.price <= maxPrice;
+  });
+  
+  renderCars(filtered);
+}
+
+searchInput.addEventListener('input', filterCars);
+priceRange.addEventListener('input', (e) => {
+  priceValue.textContent = parseInt(e.target.value).toLocaleString('pt-BR');
+  filterCars();
+});
+
+renderCars(cars);
+</script>
+</body></html>
